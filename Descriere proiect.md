@@ -1,0 +1,2 @@
+Obiectivul proiectului “The Hollywood Boxes” este prezentarea unei baze de date ce stochează informații relevante despre industria cinematografică,din mai multe decenii, și creează conexiuni între cei mai importanți “jucători” din această industrie. Totodată, baza de date prezintă într-un mod simplificat caracteristicile inviduale ale acestora, printre care: realizările personale ale actorilor, vechimea cinematografică a directorilor și succesul filmelor pe plan financiar.
+
