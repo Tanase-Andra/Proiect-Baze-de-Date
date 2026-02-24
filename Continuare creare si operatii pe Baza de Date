@@ -1,0 +1,180 @@
+alter table Actor
+rename column tara to tara_origine;
+
+alter table Director
+rename column tara to tara_origine;
+
+ALTER TABLE Actor ADD avere NUMBER(12);
+ALTER TABLE actor ADD CONSTRAINT check_avere CHECK (avere >= 0);
+
+alter table Director ADD ani_activitate NUMBER(2);
+alter table Director 
+add constraint check_anactiv
+check(ani_activitate>10 and ani_activitate<50);
+
+/*Tabela Director*/
+insert into Director values(1, 'James', 'Cameron', TO_DATE('16-AUG-54','DD-MM-YYYY'), 'Canada', 40);
+insert into Director values(2, 'Alejandro', 'Gonzalez Inarritu', TO_DATE('15-AUG-63','DD-MM-YYYY'), 'Mexic', 30);
+insert into Director values ( 3, 'Taika', 'Waititi', TO_DATE('16-AUG-75','DD-MM-YYYY'), 'Noua Zeelanda', 20);
+insert into Director values ( 4, 'Greta', 'Gerwig', TO_DATE('04-AUG-83','DD-MM-YYYY'), 'SUA', 20);
+insert into Director values ( 5, 'Tate', 'Taylor', TO_DATE('03-JUN-69','DD-MM-YYYY'), 'SUA', 18);
+insert into Director values ( 6, 'Jon', 'Chu', TO_DATE('02-NOV-79','DD-MM-YYYY'), 'SUA', 23);
+insert into Director values ( 7, 'Kathryn', 'Bigelow', TO_DATE('27-NOV-51','DD-MM-YYYY'), 'SUA', 28);
+insert into Director values ( 8,'William',' Wyler' , TO_DATE('01-JUL-02','DD-MM-YYYY'), 'SUA', 33);
+
+/*Tabela Actor*/
+insert into Actor values (101, 'Kate', 'Winslet', TO_DATE('05-OCT-75','DD-MM-YYYY'),'UK',65000000);
+insert into Actor values (102, 'Leonardo', 'DiCaprio', TO_DATE('11-NOV-74','DD-MM-YYYY'),'SUA',300000000);
+insert into Actor values (103, 'Scarlett' ,'Johansson', TO_DATE('22-NOV-84','DD-MM-YYYY'),'SUA',165000000);
+insert into Actor values (104, 'Margot' ,'Robbie', TO_DATE('02-JUL-90','DD-MM-YYYY'),'Australia',60000000);
+insert into Actor values (105, 'Octavia' ,'Spencer', TO_DATE('25-MAY-70','DD-MM-YYYY'),'SUA',14000000);
+insert into Actor values (106, 'Cynthia' ,'Erivo', TO_DATE('08-JAN-87','DD-MM-YYYY'),'UK',5000000);
+insert into Actor values (107, 'Jeremy' ,'Renner', TO_DATE('07-JAN-71','DD-MM-YYYY'),'SUA',80000000);
+insert into Actor values (108,'Audrey', 'Hepburn' , TO_DATE('04-MAR-29','DD-MM-YYYY'),'Belgis',1500000);
+
+
+/*Tabela Film*/
+insert into Film values (201, 'Titanic', 1997, 'Drama',  2264000000, 1);
+insert into Film values (202, 'The Revenant', 2015, 'Drama', 533000000 , 2);
+insert into Film values (203, 'Jojo Rabbit', 2019, 'Comedie', 90000000, 3);
+insert into Film values (204, 'Barbie', 2023, 'Comedie',1600000000, 4);
+insert into Film values (205, 'The Help', 2011, 'Drama',216000000, 5);
+insert into Film values (206, 'Wicked', 2024, 'Musical',758000000, 6);
+insert into Film values(207, 'The Hurt Locker',2008, 'Thriller',49000000,7);
+insert into Rol values(308,'Printesa', 'Ann', 'Da', 108, 208);
+/*Tabela ROL*/
+insert into Rol values (301, 'DeWitt Bukater', 'Rose', 'NU', 101, 201);
+insert into Rol values (302, 'Glass', 'Hugh', 'DA', 102, 202);
+insert into Rol values(303, NULL, 'Rosie', 'NU', 103, 203);
+insert into Rol values(304, NULL,'Barbie', 'NU', 104, 204);
+insert into Rol values(305, NULL, 'Minny', 'DA', 105, 205);
+insert into Rol values(306,'Thropp', 'Elphaba', 'NU', 106, 206);         
+insert into Rol values(307,'William', 'James', 'NU', 107, 207);         
+insert into Rol values(308,'Printesa', 'Ann', 'Da', 108, 208);         
+
+
+
+
+/*Tabela Oscar*/
+insert into Oscar values(21, 201, 1998, 'Cel mai bun film');
+insert into Oscar values(22, 201, 1998, 'Cel mai bun regizor');
+insert into Oscar values(23, 202, 2016, 'Cel mai bun actor principal');
+insert into Oscar values(24, 203,2020, 'Cel mai bun scenariu adaptat');
+insert into Oscar values(25,204, 2024, 'Cel mai bun cantec original');
+insert into Oscar values(26,205, 2012, 'Cea mai buna actrita in rol secundar');
+insert into Oscar values(27,206, 2025, 'Cele mai bune costume');
+insert into Oscar values(28,206, 2025, 'Cea mai buna productie de design');
+insert into Oscar values(29, 207, 2009, 'Cel mai bun film');
+insert into Oscar values(30, 207, 2009, 'Cel mai bun regizor');
+insert into Oscar values(31,207,2009,'Cel mai bun scenariu original');
+insert into Oscar values(32,208, 1954, 'Cea mai buna actrita in rol principal');
+insert into Oscar values(33,208, 1954, 'Cele mai bune costume');
+insert into Oscar values(34,208, 1954, 'Cel mai bun scenariu');
+
+/*1. Sa se inlocuiasca in tabela Rol numele personajelor care sunt trecute ca NULL in 'Necunoscut' */
+update Rol set nume_personaj = 'Necunoscut' 
+where nume_personaj is NULL;
+select * from Rol;
+
+/*2. In tabela Rol, sa se inlocuiasca numele si prenumele personajului 'Thropp Elphaba' cu 'The Wicked Witch', folosindu-se id-ul.*/
+update Rol set nume_personaj='The Wicked' where id_rol=306;
+update Rol set prenume_personaj='Witch' where id_rol=306;
+select * from Rol;
+
+
+/*3.In tabela Film, sa se creasca cu 100.000 Box Office-ul filmelor care au incasat mai putin decat filmul cu id-ul 204, dar mai mult decat cel cu id-ul 203*/
+UPDATE Film set BOX_OFFICE=BOX_OFFICE + 100000
+WHERE box_office<(select box_office from Film where id_film=204 ) and box_office>(select box_office from Film where id_film=203);
+select * from Film;
+
+/*4. In tabela Film, sa creasca cu 30% Box Office-ul filmelor care nu sunt produse de un director din SUA.*/
+UPDATE Film set BOX_OFFICE=BOX_OFFICE * 1.30
+WHERE id_director in ( select id_director from Director WHERE tara_origine <> 'SUA');
+select * from Film;
+
+/*5. Modificati tara de origine a Actorului cu id-ul 10 in Belgia */
+
+
+update Actor set tara_origine='Belgia' where id_actor=108;
+select * from Actor;
+
+/*6. Pentru Directorii cu o activitatea mai mica sau egala cu 20 de ani, mariti Box Office-ul filmelor cu 15%.*/
+UPDATE Film set BOX_OFFICE=BOX_OFFICE * 1.15
+WHERE id_director in ( select id_director from Director WHERE ani_activitate <= 20 );
+select * from Film;
+
+
+/*Folosind functia UNION, sa se afiseze Directorii cu cei mai multi(Max) si cei mai putini(Min) ani de activitate.*/
+select prenume, nume, ani_activitate from Director
+where ani_activitate=(select MIN(ani_activitate) from Director)
+
+UNION
+
+select prenume, nume, ani_activitate from Director
+where ani_activitate=(select MAX(ani_activitate) from Director);
+
+
+/*Folosind functia INTERSECT, sa se afiseze toti actorii care AU LUAT UN OSCAR pt un rol si sunt din UK.*/
+SELECT a.prenume, a.nume
+FROM Actor a
+JOIN Rol r ON a.id_actor = r.id_actor
+WHERE a.tara_origine = 'UK'
+
+INTERSECT
+
+SELECT a.prenume, a.nume
+FROM Actor a
+JOIN Rol r ON a.id_actor = r.id_actor
+WHERE r.premiu_rol = 'DA';
+
+SELECT a.prenume, a.nume
+FROM Actor a
+JOIN Rol r ON a.id_actor = r.id_actor
+
+MINUS
+
+SELECT a.prenume, a.nume
+FROM Actor a
+JOIN Rol r ON a.id_actor = r.id_actor
+WHERE r.premiu_rol = 'DA';
+
+
+/*Sa se afiseze din tabela Oscar numai premiile acordate pentru actorie in rol principal*/
+select * from Oscar
+where categorie like '%principal%' ;
+
+/*Sa se afiseze toti actorii nascuti dupa care au fost lansate dupa finalul anului 1975.*/
+select * from Actor
+where data_nasterii > TO_DATE('31-DEC-75', 'DD-MM-YYYY');
+
+select titlu from Film 
+where id_director =7;
+
+
+select f.titlu, f.an_aparitie, d.prenume, d.nume
+from Film f
+INNER JOIN Director d ON f.id_director=d.id_director;
+
+
+/*Sa se afiseze numai filmele care au castigat un oscar dupa anul 2010 si au obtinut peste 10 milioane de dolari la BOX_ OFFICE.*/
+select f.titlu,f.box_office, o.an_castig
+from Film f
+JOIN Oscar o ON f.id_film=o.id_film
+WHERE o.an_castig>2010 and f.box_office>10000000;
+
+
+/*Folosind datele din tabela Oscar, sa se parcurga ierarhic legatura FILM-PREMIU OSCAR CASTIGAT, unde id_ul filmului reprezinta NODUL PARINTE, iar id_ul oscar reprezinta NODUL COPIL.*/
+select LEVEL, LPAD(' ', LEVEL*2 ) ||
+CASE  WHEN LEVEL = 1 THEN 'ID Film: ' || id_film
+  WHEN LEVEL = 2 THEN 'Oscar: ' || categorie || ' (' || an_castig || ')'
+END AS structura_iererahica
+from (select id_film AS parinte, NULL AS parinte_id, id_film, NULL AS categorie, NULL AS an_castig
+from Oscar
+UNION 
+select id_oscar AS copil, id_film AS parinte_id, id_film, categorie, an_castig
+from Oscar)
+START WITH parinte_id is NULL
+CONNECT BY PRIOR parinte= parinte_id;
+
+
+
