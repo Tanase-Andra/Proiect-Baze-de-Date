@@ -1,0 +1,47 @@
+create table DIRECTOR (
+id_director NUMBER(10) PRIMARY KEY,
+prenume VARCHAR2(100) NOT NULL,
+nume VARCHAR2(100),
+data_nasterii DATE,
+tara VARCHAR2(100)
+);
+
+
+create table Actor (
+    id_actor NUMBER(10) PRIMARY KEY,
+    prenume VARCHAR2(100) NOT NULL,
+    nume VARCHAR2(100),
+    data_nasterii DATE,
+    tara VARCHAR2(25) );
+
+
+CREATE TABLE Film (
+    id_film NUMBER(10) PRIMARY KEY,
+    titlu VARCHAR2(50) NOT NULL,
+    an_aparitie NUMBER(4),
+    gen VARCHAR2(20),
+    box_office NUMBER(12,2),
+    id_director NUMBER(10),
+    constraint fk_film_director FOREIGN KEY(id_director) REFERENCES director(id_director)
+);
+
+CREATE TABLE Rol (
+ id_rol NUMBER(10) PRIMARY KEY,
+ nume_personaj VARCHAR2(100),
+ prenume_personaj VARCHAR2(100),
+ premiu_rol CHAR(5),
+ id_actor NUMBER(10),
+ id_film NUMBER(10),
+
+CONSTRAINT fk_rol_actor FOREIGN KEY (id_actor) REFERENCES Actor (id_actor), 
+CONSTRAINT fk_rol_film FOREIGN KEY (id_film) REFERENCES Film (id_film)
+);
+
+CREATE TABLE Oscar (
+    id_oscar NUMBER(10) PRIMARY KEY,
+    id_film NUMBER(10) NOT NULL,
+    
+    an_castig NUMBER(4),
+    categorie VARCHAR2(100),
+    constraint fk_oscar_film FOREIGN KEY (id_film) REFERENCES Film (id_film)
+);
